@@ -1,0 +1,233 @@
+import { ScoreboardMatch, PlayerStats } from '../types/tennisScoreboard';
+
+const createEmptyStats = (): PlayerStats => ({
+  aces: 0,
+  firstServesIn: 0,
+  totalFirstServes: 0,
+  doubleFaults: 0,
+  firstServePointsWon: 0,
+  firstServePointsPlayed: 0,
+  secondServePointsWon: 0,
+  secondServePointsPlayed: 0,
+  totalPointsWon: 0,
+  receivingPointsWon: 0,
+  receivingPointsPlayed: 0,
+  winners: 0,
+  forcedErrors: 0,
+  unforcedErrors: 0,
+  breakPointsOpportunities: 0,
+  breakPointsConverted: 0,
+});
+
+export const INITIAL_SAVED_MATCHES: ScoreboardMatch[] = [
+  // 1. Partida Histórica do Print SAVED_MATCHES & TELA_COM_RESULTADO: Djokovic vs Federer
+  {
+    id: 'match-djokovic-federer',
+    player1Name: 'Djokovic',
+    player2Name: 'Federer',
+    date: '22/06/2024',
+    time: '13:00',
+    durationSeconds: 14160, // 3h56
+    format: 'best_of_5',
+    advancedStatsEnabled: true,
+    hasAd: true,
+    server: 1,
+    firstServer: 1,
+    currentSetIndex: 4,
+    sets: [
+      { p1Games: 6, p2Games: 7, p1TiebreakPoints: 7, p2TiebreakPoints: 9, winner: 2, isCompleted: true },
+      { p1Games: 6, p2Games: 4, winner: 1, isCompleted: true },
+      { p1Games: 7, p2Games: 6, p1TiebreakPoints: 7, p2TiebreakPoints: 4, winner: 1, isCompleted: true },
+      { p1Games: 5, p2Games: 7, winner: 2, isCompleted: true },
+      { p1Games: 6, p2Games: 4, winner: 1, isCompleted: true },
+    ],
+    p1CurrentPoints: '0',
+    p2CurrentPoints: '0',
+    isTiebreak: false,
+    status: 'finished',
+    winner: 1,
+    stats: {
+      match: {
+        p1: {
+          aces: 13,
+          firstServesIn: 134,
+          totalFirstServes: 216,
+          doubleFaults: 3,
+          firstServePointsWon: 98,
+          firstServePointsPlayed: 134,
+          secondServePointsWon: 53,
+          secondServePointsPlayed: 82,
+          totalPointsWon: 185,
+          receivingPointsWon: 61,
+          receivingPointsPlayed: 185,
+          winners: 68,
+          forcedErrors: 78,
+          unforcedErrors: 27,
+          breakPointsOpportunities: 15,
+          breakPointsConverted: 4,
+        },
+        p2: {
+          aces: 29,
+          firstServesIn: 149,
+          totalFirstServes: 216,
+          doubleFaults: 5,
+          firstServePointsWon: 115,
+          firstServePointsPlayed: 149,
+          secondServePointsWon: 29,
+          secondServePointsPlayed: 67,
+          totalPointsWon: 180,
+          receivingPointsWon: 55,
+          receivingPointsPlayed: 180,
+          winners: 75,
+          forcedErrors: 87,
+          unforcedErrors: 29,
+          breakPointsOpportunities: 7,
+          breakPointsConverted: 3,
+        },
+      },
+      bySet: [
+        {
+          setNumber: 1,
+          p1: { ...createEmptyStats(), aces: 2, winners: 12, unforcedErrors: 6, totalPointsWon: 42 },
+          p2: { ...createEmptyStats(), aces: 7, winners: 16, unforcedErrors: 5, totalPointsWon: 45 },
+        },
+        {
+          setNumber: 2,
+          p1: { ...createEmptyStats(), aces: 3, winners: 14, unforcedErrors: 4, totalPointsWon: 36 },
+          p2: { ...createEmptyStats(), aces: 5, winners: 11, unforcedErrors: 7, totalPointsWon: 28 },
+        },
+        {
+          setNumber: 3,
+          p1: { ...createEmptyStats(), aces: 4, winners: 16, unforcedErrors: 6, totalPointsWon: 44 },
+          p2: { ...createEmptyStats(), aces: 8, winners: 18, unforcedErrors: 6, totalPointsWon: 41 },
+        },
+        {
+          setNumber: 4,
+          p1: { ...createEmptyStats(), aces: 2, winners: 11, unforcedErrors: 7, totalPointsWon: 31 },
+          p2: { ...createEmptyStats(), aces: 6, winners: 17, unforcedErrors: 5, totalPointsWon: 36 },
+        },
+        {
+          setNumber: 5,
+          p1: { ...createEmptyStats(), aces: 2, winners: 15, unforcedErrors: 4, totalPointsWon: 32 },
+          p2: { ...createEmptyStats(), aces: 3, winners: 13, unforcedErrors: 6, totalPointsWon: 30 },
+        },
+      ],
+    },
+  },
+
+  // 2. Partida com Desistência do Print SAVED_MATCHES: Jason def. Michael (ret.)
+  {
+    id: 'match-jason-michael',
+    player1Name: 'Jason',
+    player2Name: 'Michael',
+    date: '10/08/2024',
+    time: '16:30',
+    durationSeconds: 1260, // 0:21
+    format: 'best_of_3',
+    advancedStatsEnabled: false,
+    hasAd: true,
+    server: 1,
+    firstServer: 1,
+    currentSetIndex: 0,
+    sets: [
+      { p1Games: 4, p2Games: 1, winner: 1, isCompleted: true },
+    ],
+    p1CurrentPoints: '0',
+    p2CurrentPoints: '0',
+    isTiebreak: false,
+    status: 'retired',
+    winner: 1,
+    retiredPlayer: 2,
+    stats: {
+      match: {
+        p1: { ...createEmptyStats(), aces: 3, winners: 9, unforcedErrors: 2, totalPointsWon: 22 },
+        p2: { ...createEmptyStats(), aces: 1, winners: 4, unforcedErrors: 7, totalPointsWon: 12 },
+      },
+      bySet: [],
+    },
+  },
+];
+
+// Partida ativa padrão para abrir no Marcador de Placar conforme Print MARCADOR_DE_PLACAR: Federer vs Nadal
+export const DEFAULT_ACTIVE_MATCH: ScoreboardMatch = {
+  id: 'match-federer-nadal-live',
+  player1Name: 'Federer',
+  player2Name: 'Nadal',
+  date: '11/11/2026',
+  time: '11:30',
+  durationSeconds: 11040, // 3:04
+  format: 'best_of_5',
+  advancedStatsEnabled: true,
+  hasAd: true,
+  server: 1, // Federer sacando (barra verde ao lado de Federer)
+  firstServer: 1,
+  currentSetIndex: 3, // 4º set em andamento
+  sets: [
+    { p1Games: 6, p2Games: 4, winner: 1, isCompleted: true },
+    { p1Games: 7, p2Games: 5, winner: 1, isCompleted: true },
+    { p1Games: 6, p2Games: 7, p1TiebreakPoints: 3, p2TiebreakPoints: 7, winner: 2, isCompleted: true },
+    { p1Games: 0, p2Games: 1, isCompleted: false },
+  ],
+  p1CurrentPoints: '15',
+  p2CurrentPoints: '40', // 15 - 40 (2 break points para o Nadal no saque do Federer!)
+  isTiebreak: false,
+  breakPointBanner: '2 Break Points',
+  status: 'in_progress',
+  stats: {
+    match: {
+      p1: {
+        aces: 3,
+        firstServesIn: 88,
+        totalFirstServes: 133,
+        doubleFaults: 1,
+        firstServePointsWon: 49,
+        firstServePointsPlayed: 88,
+        secondServePointsWon: 27,
+        secondServePointsPlayed: 45,
+        totalPointsWon: 96,
+        receivingPointsWon: 41,
+        receivingPointsPlayed: 94,
+        winners: 69,
+        forcedErrors: 3,
+        unforcedErrors: 12,
+        breakPointsOpportunities: 11,
+        breakPointsConverted: 8,
+      },
+      p2: {
+        aces: 4,
+        firstServesIn: 94,
+        totalFirstServes: 136,
+        doubleFaults: 0,
+        firstServePointsWon: 49,
+        firstServePointsPlayed: 94,
+        secondServePointsWon: 28,
+        secondServePointsPlayed: 42,
+        totalPointsWon: 94,
+        receivingPointsWon: 40,
+        receivingPointsPlayed: 93,
+        winners: 74,
+        forcedErrors: 5,
+        unforcedErrors: 19,
+        breakPointsOpportunities: 11,
+        breakPointsConverted: 6,
+      },
+    },
+    bySet: [
+      {
+        setNumber: 1,
+        p1: { ...createEmptyStats(), aces: 1, winners: 24, unforcedErrors: 4, totalPointsWon: 34 },
+        p2: { ...createEmptyStats(), aces: 1, winners: 21, unforcedErrors: 6, totalPointsWon: 29 },
+      },
+      {
+        setNumber: 2,
+        p1: { ...createEmptyStats(), aces: 1, winners: 26, unforcedErrors: 3, totalPointsWon: 36 },
+        p2: { ...createEmptyStats(), aces: 2, winners: 25, unforcedErrors: 6, totalPointsWon: 32 },
+      },
+      {
+        setNumber: 3,
+        p1: { ...createEmptyStats(), aces: 1, winners: 19, unforcedErrors: 5, totalPointsWon: 26 },
+        p2: { ...createEmptyStats(), aces: 1, winners: 28, unforcedErrors: 7, totalPointsWon: 33 },
+      },
+    ],
+  },
+};

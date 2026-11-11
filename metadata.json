@@ -1,0 +1,6 @@
+{
+  "name": "Tudo Para Tenistas",
+  "description": "A plataforma completa para praticantes, profissionais e amantes do tênis de quadra.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
