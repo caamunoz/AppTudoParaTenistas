@@ -21,6 +21,7 @@ import {
   LogOut,
 } from 'lucide-react';
 import { TENNIS_MENU_OPTIONS, TennisOption } from '../types/tennisMenu';
+import { PWAInstallButton } from './common/PWAInstallButton';
 
 interface DrawerMenuProps {
   isOpen: boolean;
@@ -106,6 +107,11 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({
                 <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-3 py-1">
                   Conta & Configurações
                 </p>
+              </div>
+
+              {/* Botão de Instalar PWA no Celular / Computador */}
+              <div className="px-1 py-1">
+                <PWAInstallButton variant="menu-item" />
               </div>
 
               <button

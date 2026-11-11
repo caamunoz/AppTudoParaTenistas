@@ -15,6 +15,8 @@ import { ScoreboardMainScreen } from './components/scoreboard/ScoreboardMainScre
 import { TennisRankingsProvider } from './context/TennisRankingsContext';
 import { TennisScoreboardProvider } from './context/TennisScoreboardContext';
 import { Layers, Smartphone, Sparkles, CheckCircle2 } from 'lucide-react';
+import { PWAInstallButton } from './components/common/PWAInstallButton';
+import { usePWAInstall } from './hooks/usePWAInstall';
 
 export type ScreenView =
   | 'splash'
@@ -34,6 +36,8 @@ export type ScreenView =
 export default function App() {
   const [currentView, setCurrentView] = useState<ScreenView>('scoreboard');
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const { isInstalled } = usePWAInstall();
+  const [showDevToolbar, setShowDevToolbar] = useState(!isInstalled);
 
   const handleSplashContinue = () => {
     setCurrentView('login');
@@ -46,27 +50,32 @@ export default function App() {
 
   return (
     <div className="w-full min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans select-none">
-      {/* Top Bar com Navegador Rápido de Telas Reconstruídas */}
-      <header className="w-full border-b border-slate-800 bg-slate-900/90 backdrop-blur px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-30">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#0074c7] flex items-center justify-center font-bold text-white shadow">
-            T
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-bold text-sm tracking-tight text-white">
-                TUDO PARA TENISTAS
-              </h1>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">
-                4 Telas Integradas
-              </span>
+      {/* Top Bar com Navegador Rápido e Botão PWA (ocultável se instalado) */}
+      {showDevToolbar ? (
+        <header className="w-full border-b border-slate-800 bg-slate-900/90 backdrop-blur px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-30">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#0074c7] flex items-center justify-center font-bold text-white shadow">
+              T
             </div>
-            <p className="text-[11px] text-slate-400">Reconstrução fiel a partir dos prints antigos</p>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="font-bold text-sm tracking-tight text-white">
+                  TUDO PARA TENISTAS
+                </h1>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">
+                  PWA Standalone
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400">Plataforma Completa para Praticantes de Tênis</p>
+            </div>
           </div>
-        </div>
 
-        {/* Seletor de Telas para alternar com 1 clique */}
-        <div className="flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 overflow-x-auto">
+          <div className="flex items-center gap-2">
+            {/* Botão de Instalar PWA */}
+            <PWAInstallButton variant="button" />
+
+            {/* Seletor de Telas para alternar com 1 clique */}
+            <div className="flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 overflow-x-auto">
           <button
             onClick={() => setCurrentView('splash')}
             className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
@@ -198,7 +207,17 @@ export default function App() {
             13. Marcador de Placar
           </button>
         </div>
-      </header>
+      </div>
+    </header>
+  ) : (
+    <button
+      onClick={() => setShowDevToolbar(true)}
+      className="fixed top-2 right-2 z-50 p-1.5 rounded-full bg-slate-900/80 border border-slate-700 text-slate-400 hover:text-white shadow-lg cursor-pointer"
+      title="Alternar Telas"
+    >
+      <Layers className="w-3.5 h-3.5" />
+    </button>
+  )}
 
       {/* Área Central com Container de Visualização Mobile Responsivo */}
       <TennisRankingsProvider>
